@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ChevronDown, Github, Linkedin, Mail, Sparkles, Code, Palette } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import myPhoto from '../../img/fahad.jpg'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -266,8 +267,9 @@ const Hero: React.FC = () => {
             {/* Image with better styling */}
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
               <img
-                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
-                alt="Alex Morgan"
+                src={myPhoto} // Use the imported image
+                // src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
+                alt="Fahad Khan"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               {/* Overlay gradient */}

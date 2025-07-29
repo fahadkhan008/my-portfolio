@@ -239,7 +239,6 @@ const About: React.FC = () => {
                     animate={inView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.4, delay: 0.6 + index * 0.1 }}
                     whileHover={{ scale: 1.02, x: 10 }}
-                    transition={{ duration: 0.2 }}
                     className="group relative p-3 sm:p-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl border border-white/20 hover:shadow-lg transition-all duration-200"
                   >
                     <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${job.color} rounded-l-xl`}></div>

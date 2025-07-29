@@ -355,8 +355,8 @@ const Projects: React.FC = () => {
                           whileHover={{ 
                             scale: 1.05, 
                             y: -1,
+                            transition: { duration: 0.15 }
                           }}
-                          transition={{ duration: 0.15 }}
                           className="px-2 sm:px-3 py-1 bg-white/10 backdrop-blur-sm text-gray-300 rounded-full text-xs sm:text-sm font-medium border border-white/20 hover:border-blue-400/50 hover:text-blue-300 transition-all duration-200 cursor-default"
                         >
                           {tech}
