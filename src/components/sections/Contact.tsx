@@ -4,6 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, MessageCircle, Calendar, Zap } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import emailjs from '@emailjs/browser';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -23,7 +24,7 @@ const Contact: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
-  const formRef = useRef<HTMLDivElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   const contactInfoRef = useRef<HTMLDivElement>(null);
   const particlesRef = useRef<HTMLDivElement>(null);
 
@@ -100,20 +101,50 @@ const Contact: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission with optimized animation
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      
-      setTimeout(() => {
-        setSubmitStatus('idle');
-      }, 5000);
-    }, 2000);
+  e.preventDefault();
+  setIsSubmitting(true);
+  setSubmitStatus('idle');
+
+  const serviceId = 'service_mlfc71v';
+  const templateId = 'template_qhbiazg'
+  const publicKey = 'zt9ONKooeADB9YHLB';
+
+  const templateParams = {
+    from_name: formData.name,
+    from_email: formData.email,
+    subject: formData.subject,
+    message: formData.message,
   };
+
+  try {
+    await emailjs.send(serviceId, templateId, templateParams, publicKey);
+    setSubmitStatus('success');
+    setFormData({ name: '', email: '', subject: '', message: '' });
+  } catch (error) {
+    console.error('EmailJS Error:', error);
+    setSubmitStatus('error');
+  } finally {
+    setIsSubmitting(false);
+    setTimeout(() => setSubmitStatus('idle'), 5000);
+  }
+};
+
+
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+    
+  //   // Simulate form submission with optimized animation
+  //   setTimeout(() => {
+  //     setIsSubmitting(false);
+  //     setSubmitStatus('success');
+  //     setFormData({ name: '', email: '', subject: '', message: '' });
+      
+  //     setTimeout(() => {
+  //       setSubmitStatus('idle');
+  //     }, 5000);
+  //   }, 2000);
+  // };
 
   const contactInfo = [
     {
@@ -286,7 +317,7 @@ const Contact: React.FC = () => {
 
           {/* Optimized Contact Form */}
           <motion.div
-            ref={formRef}
+            // ref={formRef}
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -300,7 +331,11 @@ const Contact: React.FC = () => {
                 Send me a message
               </h3>
               
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+              <form 
+                onSubmit={handleSubmit} 
+                className="space-y-4 sm:space-y-6"
+                ref={formRef}
+              >
                 <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                   <div className="form-element">
                     <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
@@ -309,7 +344,7 @@ const Contact: React.FC = () => {
                     <input
                       type="text"
                       id="name"
-                      name="name"
+                      name="from_name"
                       value={formData.name}
                       onChange={handleChange}
                       required
@@ -324,7 +359,7 @@ const Contact: React.FC = () => {
                     <input
                       type="email"
                       id="email"
-                      name="email"
+                      name="from_email"
                       value={formData.email}
                       onChange={handleChange}
                       required

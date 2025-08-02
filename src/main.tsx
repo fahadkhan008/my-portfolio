@@ -1,10 +1,10 @@
-
-import './index.css';
-import App from './App.tsx';
-import { createRoot } from 'react-dom/client';
-import Loader from './components/ui/Loader.tsx';
-import { ThemeProvider } from './contexts/ThemeContext';
-import React , {useState, useEffect, StrictMode} from 'react';
+import "./index.css";
+import App from "./App.tsx";
+import { createRoot } from "react-dom/client";
+import Loader from "./components/ui/Loader";
+import { ThemeProvider } from "./contexts/ThemeContext";
+import CustomCursor from "./components/ui/CustomCursor";
+import { useState, useEffect, StrictMode } from "react";
 
 const Root = () => {
   const [loading, setLoading] = useState(true);
@@ -19,26 +19,11 @@ const Root = () => {
   return (
     <StrictMode>
       <ThemeProvider>
+        <CustomCursor />
         {loading ? <Loader onLoaded={() => setLoading(false)} /> : <App />}
+        {/* <App /> */}
       </ThemeProvider>
     </StrictMode>
   );
 };
-createRoot(document.getElementById('root')!).render(<Root />);
-
-// if (loading) {
-//   createRoot(document.getElementById('root')!).render(
-//     <StrictMode>
-//       <ThemeProvider>
-//         <Loader onLoaded={() => setLoading(false)} />
-//       </ThemeProvider>
-//     </StrictMode>
-//   );
-// }
-
-
-// createRoot(document.getElementById('root')!).render(
-//   <StrictMode>
-//     <App />
-//   </StrictMode>
-// );
+createRoot(document.getElementById("root")!).render(<Root />);

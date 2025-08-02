@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef,  } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown, Github, Linkedin, Mail, Sparkles, Code, Palette } from 'lucide-react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import myPhoto from '../../img/fahad.jpg'
+import Typewriter from 'typewriter-effect';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +18,7 @@ const Hero: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+
       // Smooth floating elements animation with better performance
       floatingElementsRef.current.forEach((el, index) => {
         if (el) {
@@ -268,7 +270,6 @@ const Hero: React.FC = () => {
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
               <img
                 src={myPhoto} // Use the imported image
-                // src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
                 alt="Fahad Khan"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -288,26 +289,52 @@ const Hero: React.FC = () => {
           {/* Enhanced Text Content with Typing Animation */}
           <div className="space-y-6">
             <div className="animate-text">
-              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold leading-tight">
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="block text-white mb-2">Hi, I'm</span>
+              </h1>
+              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold">
                 <span 
                   ref={typingRef}
                   className="block bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent border-r-2 border-neon-blue pr-2"
                   style={{ borderRightWidth: '3px' }}
                 >
-                </span>
+                </span> 
               </h1>
             </div>
 
             <div className="animate-text">
               <p className="text-xl sm:text-3xl text-gray-200 max-w-4xl mx-auto leading-relaxed font-light">
-                <span className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text text-transparent">
-                  Full-Stack Developer & UI/UX Designer
+                <span className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text 
+                 block min-h-[3.5rem] sm:min-h-[4.5rem]">
+
+                  <Typewriter
+                    options={{
+                      loop: true,
+                      delay: 75,
+                      deleteSpeed: 40,
+                      autoStart: true,
+                    }}
+                    onInit={(typewriter) => {
+                      typewriter
+                        .typeString('Full-Stack Developer & UI/UX Designer')
+                        .pauseFor(1000)
+                        .deleteAll()
+                        .typeString('Crafting digital experiences that inspire and innovate')
+                        .pauseFor(1000)
+                        .deleteAll()
+                        .typeString('Turning ideas into clean code and visual delight')
+                        .pauseFor(1000)
+                        .deleteAll()
+                        .start();
+                    }}
+                  />
+
+                  {/* Full-Stack Developer & UI/UX Designer */}
                 </span>
-                <br />
+                {/* <br />
                 <span className="text-lg sm:text-xl text-gray-300 mt-2 block">
                   Crafting digital experiences that inspire and innovate
-                </span>
+                </span> */}
               </p>
             </div>
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Sun, Moon, Home, User, Briefcase, Mail, Code, Sparkles } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
+import Logo from '../../img/logo1.png'; 
 import gsap from 'gsap';
 
 const Navigation: React.FC = () => {
@@ -102,8 +103,18 @@ const Navigation: React.FC = () => {
               ></div>
               <div className="relative text-xl sm:text-2xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent flex items-center space-x-2">
                 <Sparkles size={20} className="text-blue-400 animate-pulse" />
-                <span className="hidden sm:inline">Fahad Khan</span>
-                <span className="sm:hidden">FK</span>
+                <motion.img
+                  src={Logo} 
+                  alt="LOGO"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  whileHover={{ scale: 1.1, rotate:2 }}
+                  transition={{ type: "spring", stiffness: 120, damping: 10 }}
+                  className="w-15 h-15 sm:w-20 sm:h-20 md:w-24 md:h-24 rounded-full border-2 border-white/30 shadow-xl"
+                   
+                />
+                {/* <span className="hidden sm:inline">Fahad Khan</span>
+                <span className="sm:hidden">FK</span> */}
               </div>
             </motion.div>
 
