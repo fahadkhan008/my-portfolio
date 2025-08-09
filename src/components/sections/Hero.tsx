@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import myPhoto from '../../img/fahad.jpg'
 import Typewriter from 'typewriter-effect';
+import Resume from '../ui/ResumeBuilder'; 
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -269,7 +270,7 @@ const Hero: React.FC = () => {
             {/* Image with better styling */}
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
               <img
-                src={myPhoto} // Use the imported image
+                src={myPhoto} 
                 alt="Fahad Khan"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
@@ -303,7 +304,7 @@ const Hero: React.FC = () => {
             </div>
 
             <div className="animate-text">
-              <p className="text-xl sm:text-3xl text-gray-200 max-w-4xl mx-auto leading-relaxed font-light">
+              <p className="text-lg sm:text-2xl text-gray-400 max-w-4xl  mx-auto leading-relaxed font-light">
                 <span className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text 
                  block min-h-[3.5rem] sm:min-h-[4.5rem]">
 
@@ -389,22 +390,9 @@ const Hero: React.FC = () => {
                   <Sparkles size={18} className="transition-transform duration-300 group-hover:rotate-12" />
                 </span>
               </motion.button>
-
-              <motion.button
-                whileHover={{ 
-                  scale: 1.02, 
-                  y: -2,
-                  transition: { duration: 0.2, ease: "easeOut" }
-                }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group px-8 py-4 bg-white/5 backdrop-blur-md text-white font-semibold rounded-full border border-white/20 hover:border-neon-blue/50 transition-all duration-300 hover:bg-white/10"
-              >
-                <span className="flex items-center space-x-2">
-                  <span>Get In Touch</span>
-                  <Mail size={18} className="transition-transform duration-300 group-hover:scale-110" />
-                </span>
-              </motion.button>
+              
+                <Resume />
+              
             </div>
           </div>
 

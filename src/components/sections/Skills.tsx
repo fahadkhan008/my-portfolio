@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { color, motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { FaReact, FaNodeJs, FaGit, FaDocker } from 'react-icons/fa';
+import { SiTypescript, SiNextdotjs, SiTailwindcss, SiPython, SiDjango, SiPostgresql, SiFigma, SiAdobexd } from 'react-icons/si';
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,38 +19,99 @@ const Skills: React.FC = () => {
   const skillBarsRef = useRef<HTMLDivElement[]>([]);
   const techCloudRef = useRef<HTMLDivElement>(null);
 
-  const skillCategories = [
-    {
-      title: 'Frontend',
-      gradient: 'from-blue-500 via-cyan-500 to-teal-500',
-      skills: [
-        { name: 'React', level: 95, color: 'from-blue-400 to-blue-600', icon: '⚛️' },
-        { name: 'TypeScript', level: 90, color: 'from-blue-500 to-blue-700', icon: '📘' },
-        { name: 'Next.js', level: 85, color: 'from-gray-700 to-gray-900', icon: '▲' },
-        { name: 'Tailwind CSS', level: 92, color: 'from-teal-400 to-teal-600', icon: '🎨' },
-      ],
-    },
-    {
-      title: 'Backend',
-      gradient: 'from-green-500 via-emerald-500 to-teal-500',
-      skills: [
-        { name: 'Node.js', level: 88, color: 'from-green-400 to-green-600', icon: '🟢' },
-        { name: 'Python', level: 85, color: 'from-yellow-400 to-yellow-600', icon: '🐍' },
-        { name: 'Django', level: 80, color: 'from-green-600 to-green-800', icon: '🎯' },
-        { name: 'PostgreSQL', level: 82, color: 'from-blue-600 to-blue-800', icon: '🐘' },
-      ],
-    },
-    {
-      title: 'Design & Tools',
-      gradient: 'from-purple-500 via-pink-500 to-rose-500',
-      skills: [
-        { name: 'Figma', level: 90, color: 'from-purple-400 to-purple-600', icon: '🎨' },
-        { name: 'Adobe XD', level: 85, color: 'from-pink-400 to-pink-600', icon: '🎭' },
-        { name: 'Git', level: 93, color: 'from-orange-400 to-orange-600', icon: '📦' },
-        { name: 'Docker', level: 75, color: 'from-blue-400 to-blue-600', icon: '🐳' },
-      ],
-    },
-  ];
+const skillCategories = [
+  {
+    title: 'Frontend',
+    gradient: 'from-blue-500 via-cyan-500 to-teal-500',
+    skills: [
+      { 
+        name: 'React', 
+        level: 95, 
+        color: 'from-blue-400 to-blue-600', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" width="24" height="24" alt="React" className="inline-block" /> 
+      },
+      { 
+        name: 'TypeScript', 
+        level: 90, 
+        color: 'from-blue-500 to-blue-700', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="24" height="24" alt="TypeScript" className="inline-block" /> 
+      },
+      { 
+        name: 'Next.js', 
+        level: 85, 
+        color: 'from-gray-700 to-gray-900', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" width="24" height="24" alt="Next.js" className="inline-block dark:invert" /> 
+      },
+      { 
+        name: 'Tailwind CSS', 
+        level: 92, 
+        color: 'from-teal-400 to-teal-600', 
+        icon: <SiTailwindcss className="text-[#3178C6]" /> 
+      },
+    ],
+  },
+  {
+    title: 'Backend',
+    gradient: 'from-green-500 via-emerald-500 to-teal-500',
+    skills: [
+      { 
+        name: 'Node.js', 
+        level: 88, 
+        color: 'from-green-400 to-green-600', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" width="24" height="24" alt="Node.js" className="inline-block" /> 
+      },
+      { 
+        name: 'Python', 
+        level: 85, 
+        color: 'from-yellow-400 to-yellow-600', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" width="24" height="24" alt="Python" className="inline-block" /> 
+      },
+      { 
+        name: 'Django', 
+        level: 80, 
+        color: 'from-green-600 to-green-800', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" width="24" height="24" alt="Django" className="inline-block" /> 
+      },
+      { 
+        name: 'PostgreSQL', 
+        level: 82, 
+        color: 'from-blue-600 to-blue-800', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" width="24" height="24" alt="PostgreSQL" className="inline-block" /> 
+      },
+    ],
+  },
+  {
+    title: 'Design & Tools',
+    gradient: 'from-purple-500 via-pink-500 to-rose-500',
+    skills: [
+      { 
+        name: 'Figma', 
+        level: 90, 
+        color: 'from-purple-400 to-purple-600', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" width="24" height="24" alt="Figma" className="inline-block" /> 
+      },
+      { 
+        name: 'Adobe XD', 
+        level: 85, 
+        color: 'from-pink-400 to-pink-600', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg" width="24" height="24" alt="Adobe XD" className="inline-block" /> 
+      },
+      { 
+        name: 'Git', 
+        level: 93, 
+        color: 'from-orange-400 to-orange-600', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" width="24" height="24" alt="Git" className="inline-block" /> 
+      },
+      { 
+        name: 'Docker', 
+        level: 75, 
+        color: 'from-blue-400 to-blue-600', 
+        icon: <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" width="24" height="24" alt="Docker" className="inline-block" /> 
+      },
+    ],
+  },
+];
+
 
   useEffect(() => {
     if (inView) {
@@ -214,7 +278,7 @@ const Skills: React.FC = () => {
                       <div key={skill.name} className="group/skill">
                         <div className="flex justify-between items-center mb-2 sm:mb-3">
                           <div className="flex items-center space-x-2 sm:space-x-3">
-                            <span className="text-lg sm:text-2xl">{skill.icon}</span>
+                            <span className="text-lg sm:text-2xl">{skill.icon }</span>
                             <span className="text-white font-medium group-hover/skill:text-blue-300 transition-colors duration-200 text-sm sm:text-base">
                               {skill.name}
                             </span>
@@ -293,13 +357,12 @@ const Skills: React.FC = () => {
               { name: 'MongoDB', color: 'from-green-500 to-green-700', emoji: '🍃' },
               { name: 'Firebase', color: 'from-yellow-500 to-orange-500', emoji: '🔥' },
               { name: 'AWS', color: 'from-orange-400 to-orange-600', emoji: '☁️' },
-              { name: 'Vercel', color: 'from-gray-700 to-gray-900', emoji: '▲' },
-              { name: 'Jest', color: 'from-red-500 to-red-700', emoji: '🃏' },
               { name: 'Cypress', color: 'from-gray-600 to-gray-800', emoji: '🌲' },
               { name: 'Webpack', color: 'from-blue-500 to-blue-700', emoji: '📦' },
               { name: 'Vite', color: 'from-purple-500 to-purple-700', emoji: '⚡' },
               { name: 'ESLint', color: 'from-indigo-500 to-indigo-700', emoji: '🔍' },
               { name: 'Prettier', color: 'from-gray-500 to-gray-700', emoji: '✨' },
+              
             ].map((tech, index) => (
               <motion.div
                 key={tech.name}
