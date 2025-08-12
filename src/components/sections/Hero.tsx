@@ -1,11 +1,19 @@
-import React, { useEffect, useRef,  } from 'react';
-import { motion } from 'framer-motion';
-import { ChevronDown, Github, Linkedin, Mail, Sparkles, Code, Palette } from 'lucide-react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import myPhoto from '../../img/fahad.jpg'
-import Typewriter from 'typewriter-effect';
-import Resume from '../ui/ResumeBuilder'; 
+import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import {
+  ChevronDown,
+  Github,
+  Linkedin,
+  Mail,
+  Sparkles,
+  Code,
+  Palette,
+} from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import myPhoto from "../../img/fahad.jpg";
+import Typewriter from "typewriter-effect";
+import Resume from "../ui/ResumeBuilder";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,7 +27,6 @@ const Hero: React.FC = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-
       // Smooth floating elements animation with better performance
       floatingElementsRef.current.forEach((el, index) => {
         if (el) {
@@ -56,17 +63,17 @@ const Hero: React.FC = () => {
       // Typing animation
       if (typingRef.current) {
         const text = "Fahad Khan";
-        const chars = text.split('');
-        typingRef.current.innerHTML = '';
-        
+        const chars = text.split("");
+        typingRef.current.innerHTML = "";
+
         chars.forEach((char) => {
-          const span = document.createElement('span');
-          span.textContent = char === ' ' ? '\u00A0' : char;
-          span.style.opacity = '0';
+          const span = document.createElement("span");
+          span.textContent = char === " " ? "\u00A0" : char;
+          span.style.opacity = "0";
           typingRef.current?.appendChild(span);
         });
 
-        const charElements = typingRef.current.querySelectorAll('span');
+        const charElements = typingRef.current.querySelectorAll("span");
         gsap.to(charElements, {
           opacity: 1,
           duration: 0.1,
@@ -77,7 +84,7 @@ const Hero: React.FC = () => {
 
         // Cursor blink effect
         gsap.to(typingRef.current, {
-          borderRightColor: 'transparent',
+          borderRightColor: "transparent",
           duration: 0.5,
           repeat: -1,
           yoyo: true,
@@ -87,10 +94,11 @@ const Hero: React.FC = () => {
 
       // Enhanced text reveal animation
       if (textRef.current) {
-        const textElements = textRef.current.querySelectorAll('.animate-text');
-        gsap.fromTo(textElements, 
-          { 
-            y: 60, 
+        const textElements = textRef.current.querySelectorAll(".animate-text");
+        gsap.fromTo(
+          textElements,
+          {
+            y: 60,
             opacity: 0,
             scale: 0.9,
           },
@@ -128,32 +136,48 @@ const Hero: React.FC = () => {
               y: self.progress * -100,
             });
           }
-        }
+        },
       });
-
     }, heroRef);
 
     return () => ctx.revert();
   }, []);
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub', color: 'hover:text-neon-black-800' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn', color: 'hover:text-neon-blue' },
-    { icon: Mail, href: '#contact', label: 'Email', color: 'hover:text-neon-pink' },
+    {
+      icon: Github,
+      href: "https://github.com/fahadkhan008",
+      label: "GitHub",
+      color: "hover:text-neon-black-800",
+    },
+    {
+      icon: Linkedin,
+      href: "https://www.linkedin.com/in/fahad-khan-818475289/",
+      label: "LinkedIn",
+      color: "hover:text-neon-blue",
+    },
+    {
+      icon: Mail,
+      href: "#contact",
+      label: "Email",
+      color: "hover:text-neon-pink",
+    },
   ];
 
   const skills = [
-    { name: 'React', icon: Code, color: 'text-blue-400' },
-    { name: 'TypeScript', icon: Code, color: 'text-blue-500' },
-    { name: 'Node.js', icon: Code, color: 'text-green-400' },
-    { name: 'Python', icon: Code, color: 'text-yellow-400' },
-    { name: 'UI/UX', icon: Palette, color: 'text-purple-400' },
+    { name: "React", icon: Code, color: "text-blue-400" },
+    { name: "TypeScript", icon: Code, color: "text-blue-500" },
+    { name: "Node.js", icon: Code, color: "text-green-400" },
+    { name: "Python", icon: Code, color: "text-yellow-400" },
+    { name: "UI/UX", icon: Palette, color: "text-purple-400" },
   ];
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Enhanced Animated Background with Stars and Moons */}
-      <div 
+      <div
         ref={backgroundRef}
         className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900"
         style={{
@@ -161,9 +185,8 @@ const Hero: React.FC = () => {
             radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
             radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
             radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%)
-          `
-        }}
-      >
+          `,
+        }}>
         {/* Animated Stars Background */}
         <div className="absolute inset-0">
           {[...Array(50)].map((_, i) => (
@@ -191,28 +214,27 @@ const Hero: React.FC = () => {
                 top: `${20 + i * 20}%`,
                 animationDelay: `${i * 2}s`,
                 animationDuration: `${8 + i * 2}s`,
-                filter: 'blur(1px)',
+                filter: "blur(1px)",
               }}
             />
           ))}
         </div>
-        
+
         {/* Animated mesh overlay */}
         <div className="absolute inset-0 opacity-20">
           <div className="absolute inset-0 bg-gradient-to-r from-transparent via-neon-blue/5 to-transparent animate-shimmer"></div>
         </div>
-        
+
         {/* Grid pattern */}
-        <div 
+        <div
           className="absolute inset-0 opacity-10"
           style={{
             backgroundImage: `
               linear-gradient(rgba(0, 212, 255, 0.1) 1px, transparent 1px),
               linear-gradient(90deg, rgba(0, 212, 255, 0.1) 1px, transparent 1px)
             `,
-            backgroundSize: '50px 50px'
-          }}
-        ></div>
+            backgroundSize: "50px 50px",
+          }}></div>
       </div>
 
       {/* Enhanced Floating 3D Elements */}
@@ -224,14 +246,20 @@ const Hero: React.FC = () => {
             className="absolute w-2 h-2 rounded-full opacity-60"
             style={{
               background: `linear-gradient(45deg, 
-                ${i % 3 === 0 ? '#00d4ff' : i % 3 === 1 ? '#b347d9' : '#ff006e'}, 
-                ${i % 3 === 0 ? '#b347d9' : i % 3 === 1 ? '#ff006e' : '#00d4ff'})`,
-              filter: 'blur(0.5px)',
-              boxShadow: `0 0 10px ${i % 3 === 0 ? '#00d4ff' : i % 3 === 1 ? '#b347d9' : '#ff006e'}`,
+                ${
+                  i % 3 === 0 ? "#00d4ff" : i % 3 === 1 ? "#b347d9" : "#ff006e"
+                }, 
+                ${
+                  i % 3 === 0 ? "#b347d9" : i % 3 === 1 ? "#ff006e" : "#00d4ff"
+                })`,
+              filter: "blur(0.5px)",
+              boxShadow: `0 0 10px ${
+                i % 3 === 0 ? "#00d4ff" : i % 3 === 1 ? "#b347d9" : "#ff006e"
+              }`,
             }}
           />
         ))}
-        
+
         {/* Larger geometric shapes */}
         {[...Array(4)].map((_, i) => (
           <div
@@ -241,48 +269,68 @@ const Hero: React.FC = () => {
             style={{
               width: `${60 + Math.random() * 40}px`,
               height: `${60 + Math.random() * 40}px`,
-              background: `conic-gradient(from ${i * 90}deg, #00d4ff, #b347d9, #ff006e, #39ff14)`,
-              clipPath: i % 2 === 0 ? 'polygon(50% 0%, 0% 100%, 100% 100%)' : 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)',
-              filter: 'blur(1px)',
+              background: `conic-gradient(from ${
+                i * 90
+              }deg, #00d4ff, #b347d9, #ff006e, #39ff14)`,
+              clipPath:
+                i % 2 === 0
+                  ? "polygon(50% 0%, 0% 100%, 100% 100%)"
+                  : "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)",
+              filter: "blur(1px)",
             }}
           />
         ))}
       </div>
 
       {/* Content */}
-      <div ref={heroRef} className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+      <div
+        ref={heroRef}
+        className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div ref={textRef} className="space-y-8">
           {/* Enhanced Profile Image with Better Styling */}
           <motion.div
             initial={{ opacity: 0, scale: 0.5, rotateY: 180 }}
             animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            transition={{ duration: 1.5, delay: 0.2, type: "spring", stiffness: 80 }}
-            className="relative mx-auto w-40 h-40 sm:w-48 sm:h-48 group"
-          >
+            transition={{
+              duration: 1.5,
+              delay: 0.2,
+              type: "spring",
+              stiffness: 80,
+            }}
+            className="relative mx-auto w-40 h-40 sm:w-48 sm:h-48 group">
             {/* Multiple animated rings with different speeds */}
             <div className="absolute inset-0 rounded-full border-2 border-neon-blue/30 animate-spin-slow"></div>
-            <div className="absolute inset-2 rounded-full border-2 border-neon-purple/30 animate-spin-slow" style={{ animationDirection: 'reverse', animationDuration: '12s' }}></div>
-            <div className="absolute inset-4 rounded-full border-2 border-neon-pink/30 animate-spin-slow" style={{ animationDuration: '8s' }}></div>
-            
+            <div
+              className="absolute inset-2 rounded-full border-2 border-neon-purple/30 animate-spin-slow"
+              style={{
+                animationDirection: "reverse",
+                animationDuration: "12s",
+              }}></div>
+            <div
+              className="absolute inset-4 rounded-full border-2 border-neon-pink/30 animate-spin-slow"
+              style={{ animationDuration: "8s" }}></div>
+
             {/* Enhanced glow effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink rounded-full opacity-30 blur-md animate-pulse"></div>
-            
+
             {/* Image with better styling */}
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
               <img
-                src={myPhoto} 
+                src={myPhoto}
                 alt="Fahad Khan"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               {/* Overlay gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-purple-900/20 via-transparent to-blue-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
-            
+
             {/* Floating icons around image */}
             <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-neon-blue to-neon-purple rounded-full flex items-center justify-center animate-bounce-slow">
               <Sparkles size={16} className="text-white" />
             </div>
-            <div className="absolute -bottom-2 -left-2 w-6 h-6 bg-gradient-to-r from-neon-pink to-neon-purple rounded-full flex items-center justify-center animate-bounce-slow" style={{ animationDelay: '1s' }}>
+            <div
+              className="absolute -bottom-2 -left-2 w-6 h-6 bg-gradient-to-r from-neon-pink to-neon-purple rounded-full flex items-center justify-center animate-bounce-slow"
+              style={{ animationDelay: "1s" }}>
               <Code size={12} className="text-white" />
             </div>
           </motion.div>
@@ -294,20 +342,18 @@ const Hero: React.FC = () => {
                 <span className="block text-white mb-2">Hi, I'm</span>
               </h1>
               <h1 className="text-5xl sm:text-7xl lg:text-8xl font-bold">
-                <span 
+                <span
                   ref={typingRef}
                   className="block bg-gradient-to-r from-neon-blue via-neon-purple to-neon-pink bg-clip-text text-transparent border-r-2 border-neon-blue pr-2"
-                  style={{ borderRightWidth: '3px' }}
-                >
-                </span> 
+                  style={{ borderRightWidth: "3px" }}></span>
               </h1>
             </div>
 
             <div className="animate-text">
               <p className="text-lg sm:text-2xl text-gray-400 max-w-4xl  mx-auto leading-relaxed font-light">
-                <span className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text 
+                <span
+                  className="bg-gradient-to-r from-blue-200 via-purple-200 to-pink-200 bg-clip-text 
                  block min-h-[3.5rem] sm:min-h-[4.5rem]">
-
                   <Typewriter
                     options={{
                       loop: true,
@@ -317,13 +363,17 @@ const Hero: React.FC = () => {
                     }}
                     onInit={(typewriter) => {
                       typewriter
-                        .typeString('Full-Stack Developer & UI/UX Designer')
+                        .typeString("Full-Stack Developer & UI/UX Designer")
                         .pauseFor(1000)
                         .deleteAll()
-                        .typeString('Crafting digital experiences that inspire and innovate')
+                        .typeString(
+                          "Crafting digital experiences that inspire and innovate"
+                        )
                         .pauseFor(1000)
                         .deleteAll()
-                        .typeString('Turning ideas into clean code and visual delight')
+                        .typeString(
+                          "Turning ideas into clean code and visual delight"
+                        )
                         .pauseFor(1000)
                         .deleteAll()
                         .start();
@@ -350,15 +400,17 @@ const Hero: React.FC = () => {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 1 + index * 0.1, duration: 0.6 }}
-                      whileHover={{ 
-                        scale: 1.05, 
+                      whileHover={{
+                        scale: 1.05,
                         y: -3,
-                        transition: { duration: 0.2, ease: "easeOut" }
+                        transition: { duration: 0.2, ease: "easeOut" },
                       }}
-                      className="group px-4 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:border-neon-blue/50 transition-all duration-300 cursor-default"
-                    >
+                      className="group px-4 py-2 bg-white/5 backdrop-blur-md rounded-full border border-white/10 hover:border-neon-blue/50 transition-all duration-300 cursor-default">
                       <div className="flex items-center space-x-2">
-                        <Icon size={16} className={`${skill.color} transition-transform duration-300 group-hover:scale-110`} />
+                        <Icon
+                          size={16}
+                          className={`${skill.color} transition-transform duration-300 group-hover:scale-110`}
+                        />
                         <span className="text-white group-hover:text-neon-blue transition-colors duration-300">
                           {skill.name}
                         </span>
@@ -374,25 +426,30 @@ const Hero: React.FC = () => {
           <div className="animate-text">
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
               <motion.button
-                whileHover={{ 
-                  scale: 1.02, 
+                whileHover={{
+                  scale: 1.02,
                   y: -2,
-                  transition: { duration: 0.2, ease: "easeOut" }
+                  transition: { duration: 0.2, ease: "easeOut" },
                 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                className="group relative px-8 py-4 bg-gradient-to-r from-neon-blue to-neon-purple text-white font-semibold rounded-full overflow-hidden transition-all duration-300 shadow-lg hover:shadow-neon-blue/25"
-              >
+                onClick={() =>
+                  document
+                    .getElementById("projects")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="group relative px-8 py-4 bg-gradient-to-r from-neon-blue to-neon-purple text-white font-semibold rounded-full overflow-hidden transition-all duration-300 shadow-lg hover:shadow-neon-blue/25">
                 <div className="absolute inset-0 bg-gradient-to-r from-neon-purple to-neon-pink opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12"></div>
                 <span className="relative z-10 flex items-center space-x-2">
                   <span>View My Work</span>
-                  <Sparkles size={18} className="transition-transform duration-300 group-hover:rotate-12" />
+                  <Sparkles
+                    size={18}
+                    className="transition-transform duration-300 group-hover:rotate-12"
+                  />
                 </span>
               </motion.button>
-              
-                <Resume />
-              
+
+              <Resume />
             </div>
           </div>
 
@@ -408,16 +465,18 @@ const Hero: React.FC = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.5 + index * 0.1, duration: 0.6 }}
-                    whileHover={{ 
-                      scale: 1.15, 
+                    whileHover={{
+                      scale: 1.15,
                       y: -5,
-                      transition: { duration: 0.2, ease: "easeOut" }
+                      transition: { duration: 0.2, ease: "easeOut" },
                     }}
                     whileTap={{ scale: 0.95 }}
                     className={`group p-4 bg-white/5 backdrop-blur-md rounded-full text-white ${social.color} transition-all duration-300 hover:shadow-lg border border-white/10 hover:border-white/30`}
-                    aria-label={social.label}
-                  >
-                    <Icon size={24} className="transition-transform duration-300 group-hover:scale-110" />
+                    aria-label={social.label}>
+                    <Icon
+                      size={24}
+                      className="transition-transform duration-300 group-hover:scale-110"
+                    />
                   </motion.a>
                 );
               })}
@@ -430,20 +489,22 @@ const Hero: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 2 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
           <motion.div
-            animate={{ 
+            animate={{
               y: [0, 10, 0],
             }}
-            transition={{ 
-              duration: 2, 
+            transition={{
+              duration: 2,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: "easeInOut",
             }}
             className="text-white/70 cursor-pointer group"
-            onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-          >
+            onClick={() =>
+              document
+                .getElementById("about")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }>
             <div className="flex flex-col items-center space-y-2">
               <span className="text-sm font-medium group-hover:text-neon-blue transition-colors duration-300">
                 Scroll Down
@@ -451,7 +512,10 @@ const Hero: React.FC = () => {
               <div className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center group-hover:border-neon-blue/50 transition-colors duration-300">
                 <div className="w-1 h-3 bg-white/50 rounded-full mt-2 group-hover:bg-neon-blue animate-bounce"></div>
               </div>
-              <ChevronDown size={24} className="group-hover:text-neon-blue transition-colors duration-300" />
+              <ChevronDown
+                size={24}
+                className="group-hover:text-neon-blue transition-colors duration-300"
+              />
             </div>
           </motion.div>
         </motion.div>

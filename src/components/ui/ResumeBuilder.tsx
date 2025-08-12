@@ -358,22 +358,22 @@ const ResumeBuilder: React.FC = () => {
     <section
       id="resume"
     >
-
+      
       <motion.button
         onClick={generatePdf}
         disabled={isGenerating}
         whileHover={{ scale: 1.02, y: -2 }}
         whileTap={{ scale: 0.98 }}
         transition={{ duration: 0.2 }}
-        className="group relative px-8 py-4 transparent bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-xl transition-all duration-300 overflow-hidden hover:shadow-blue-500/25 text-sm sm:text-base">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        className="group relative flex items-center justify-center px-8 py-4 rounded-full font-semibold backdrop-blur-md text-white border border-white/20 shadow-lg transition-all duration-300 overflow-hidden hover:shadow-blue-500/25 hover:border-neon-blue/50 text-sm sm:text-base"
+      >
         <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12"></div>
 
         <span className="relative z-10 flex items-center space-x-2">
           {isGenerating ? (
             <>
               <Loader size={18} className="animate-spin" />
-              <span>Generating...</span>
+              <span>Generating...</span>p
             </>
           ) : status === "success" ? (
             <>

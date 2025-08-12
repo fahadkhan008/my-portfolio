@@ -129,23 +129,6 @@ const Contact: React.FC = () => {
   }
 };
 
-
-  // const handleSubmit = async (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
-    
-  //   // Simulate form submission with optimized animation
-  //   setTimeout(() => {
-  //     setIsSubmitting(false);
-  //     setSubmitStatus('success');
-  //     setFormData({ name: '', email: '', subject: '', message: '' });
-      
-  //     setTimeout(() => {
-  //       setSubmitStatus('idle');
-  //     }, 5000);
-  //   }, 2000);
-  // };
-
   const contactInfo = [
     {
       icon: Mail,
@@ -167,7 +150,7 @@ const Contact: React.FC = () => {
       icon: MapPin,
       title: 'Location',
       content: 'Lahore, Pakistan',
-      href: '#',
+      href: 'https://goo.gl/maps/3Z1b5f8z5xv',
       color: 'from-purple-500 to-pink-500',
       description: 'Available worldwide'
     },

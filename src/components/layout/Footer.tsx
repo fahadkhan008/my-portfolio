@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Github, Linkedin, Twitter, Mail, Sparkles, Code, Coffee } from 'lucide-react';
+import { Heart, Github, Linkedin, Twitter, Mail, Sparkles, Code, Coffee, PhoneCall, MapPin, Send  } from 'lucide-react';
 import gsap from 'gsap';
 
 const Footer: React.FC = () => {
@@ -38,10 +38,10 @@ const Footer: React.FC = () => {
   }, []);
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub', color: 'hover:text-gray-300' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn', color: 'hover:text-blue-400' },
-    { icon: Twitter, href: '#', label: 'Twitter', color: 'hover:text-sky-400' },
-    { icon: Mail, href: '#contact', label: 'Email', color: 'hover:text-purple-400' },
+    { icon: Github, href: 'https://github.com/fahadkhan008', label: 'GitHub', color: 'hover:text-gray-300' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/fahad-khan-818475289/', label: 'LinkedIn', color: 'hover:text-blue-400' },
+    { icon: Twitter, href: 'https://twitter.com', label: 'Twitter', color: 'hover:text-sky-400' },
+    { icon: Mail, href: 'mailto:fahadkhan233144@gmail.com', label: 'Email', color: 'hover:text-purple-400' },
   ];
 
   const quickLinks = [
@@ -225,28 +225,40 @@ const Footer: React.FC = () => {
                 whileHover={{ x: 5 }}
                 className="flex items-center space-x-3 group cursor-pointer"
               >
-                <Mail size={16} className="text-purple-400 group-hover:animate-bounce" />
-                <span className="group-hover:text-white transition-colors duration-300">
+                <Send size={16} className="text-blue-400 group-hover:animate-bounce" />
+                <a href='mailto:fahadkhan233144@gmail.com'>
+                <span 
+                  className="group-hover:text-white transition-colors duration-300"
+                >
                   fahadkhan233144@gmail.com
                 </span>
+                </a>
               </motion.div>
               <motion.div 
                 whileHover={{ x: 5 }}
                 className="flex items-center space-x-3 group cursor-pointer"
               >
-                <Coffee size={16} className="text-orange-400 group-hover:animate-bounce" />
-                <span className="group-hover:text-white transition-colors duration-300">
+                <PhoneCall size={16} className="text-green-400 group-hover:animate-bounce" />
+                <a href='tel:+923104779591'>
+                <span 
+                  className="group-hover:text-white transition-colors duration-300"
+                >
                   +92 (310) 477-9591
                 </span>
+                </a>
               </motion.div>
               <motion.div 
                 whileHover={{ x: 5 }}
                 className="flex items-center space-x-3 group cursor-pointer"
               >
-                <Sparkles size={16} className="text-pink-400 group-hover:animate-bounce" />
-                <span className="group-hover:text-white transition-colors duration-300">
+                <MapPin size={16} className="text-pink-400 group-hover:animate-bounce" />
+                <a href='https://maps.app.goo.gl/4PjfDbpHXGKu5SiD8'>
+                <span 
+                  className="group-hover:text-white transition-colors duration-300"
+                >
                   Lahore, Pakistan
                 </span>
+                </a>
               </motion.div>
             </div>
             
