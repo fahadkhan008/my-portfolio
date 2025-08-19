@@ -317,7 +317,7 @@ const Hero: React.FC = () => {
             <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/20 shadow-2xl">
               <img
                 src={myPhoto}
-                alt="Fahad Khan"
+                alt="Fahad-Khan"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               {/* Overlay gradient */}
