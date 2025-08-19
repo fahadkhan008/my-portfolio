@@ -346,48 +346,143 @@ const skillCategories = [
             </span>
           </h3>
           
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-            {[
-              { name: 'JavaScript', color: 'from-yellow-400 to-orange-500', emoji: '🟨' },
-              { name: 'HTML5', color: 'from-orange-500 to-red-500', emoji: '🌐' },
-              { name: 'CSS3', color: 'from-blue-400 to-blue-600', emoji: '🎨' },
-              { name: 'SASS', color: 'from-pink-400 to-pink-600', emoji: '💅' },
-              { name: 'GraphQL', color: 'from-pink-500 to-purple-500', emoji: '📊' },
-              { name: 'REST API', color: 'from-green-400 to-green-600', emoji: '🔗' },
-              { name: 'MongoDB', color: 'from-green-500 to-green-700', emoji: '🍃' },
-              { name: 'Firebase', color: 'from-yellow-500 to-orange-500', emoji: '🔥' },
-              { name: 'AWS', color: 'from-orange-400 to-orange-600', emoji: '☁️' },
-              { name: 'Cypress', color: 'from-gray-600 to-gray-800', emoji: '🌲' },
-              { name: 'Webpack', color: 'from-blue-500 to-blue-700', emoji: '📦' },
-              { name: 'Vite', color: 'from-purple-500 to-purple-700', emoji: '⚡' },
-              { name: 'ESLint', color: 'from-indigo-500 to-indigo-700', emoji: '🔍' },
-              { name: 'Prettier', color: 'from-gray-500 to-gray-700', emoji: '✨' },
-              
-            ].map((tech, index) => (
-              <motion.div
-                key={tech.name}
-                whileHover={{ 
-                  scale: 1.05, 
-                  y: -3,
-                }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ duration: 0.2 }}
-                className={`tech-item group relative px-3 sm:px-6 py-2 sm:py-3 bg-gradient-to-r ${tech.color} text-white rounded-full font-medium hover:shadow-2xl transition-all duration-300 cursor-default overflow-hidden border border-white/20 text-xs sm:text-sm will-change-transform`}
-              >
-                {/* Optimized background shimmer */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                
-                <div className="relative z-10 flex items-center space-x-1 sm:space-x-2">
-                  <span className="text-sm sm:text-lg">{tech.emoji}</span>
-                  <span className="font-semibold">{tech.name}</span>
-                </div>
-
-                {/* Optimized glow effect */}
-                <div className={`absolute inset-0 bg-gradient-to-r ${tech.color} rounded-full blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-200 -z-10`}></div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+    {/* First horizontal line - Frontend & Main Technologies  */}
+  <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 mb-12">
+    {[
+      { name: 'React', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+      { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
+      { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+      { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+      { name: 'Three.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/threejs/threejs-original.svg' },
+      { name: 'Tailwind CSS', icon: 'https://static.cdnlogo.com/logos/t/80/tailwind-css_800.png' },
+      
+      { name: 'Redux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg'},
+      { name: 'Jest', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg' },
+      { name: 'Framer', icon: 'https://framerusercontent.com/images/TvJ9grdPgk3sRz6T6XwkpBrFr4k.png?scale-down-to=512'},
+      { name: 'HTML5', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
+      { name: 'CSS3', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
+      { name: 'Sass', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg' },
+      { name: 'Bootstrap', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg' },
+      { name: 'Material UI', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg' },
+      { name: 'GSAP', icon: 'https://static.cdnlogo.com/logos/g/31/gsap-greensock.svg' },
+    ].map((tech, index) => (
+      <motion.div
+        key={tech.name}
+        className="relative group flex flex-col items-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ 
+          opacity: 1, 
+          y: [0, -10, 0],
+        }}
+        transition={{ 
+          opacity: { duration: 0.5, delay: index * 0.1 },
+          y: { 
+            duration: 4 + Math.random() * 2, 
+            repeat: Infinity,
+            ease: "easeInOut"
+          }
+        }}
+        whileHover={{ 
+          scale: 1.3,
+          y: -15,
+          transition: { duration: 0.3 }
+        }}
+      >
+        <img 
+          src={tech.icon} 
+          width="48" 
+          height="48" 
+          alt={tech.name}
+          className="drop-shadow-lg filter hover:drop-shadow-[0_0_12px_rgba(192,132,252,0.6)] transition-all duration-300"
+        />
+        <div className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-800/90 text-white text-xs font-medium py-1 px-2 rounded-md whitespace-nowrap backdrop-blur-sm">
+          {tech.name}
+        </div>
+        <div className="absolute inset-0 bg-purple-500/20 rounded-full opacity-0 group-hover:opacity-100 blur-md group-hover:scale-125 transition-all duration-300 -z-10"></div>
+      </motion.div>
+    ))}
+  </div>
+  
+   {/* Second horizontal line - Backend, Tools & Deployment  */}
+  <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+    {[
+      { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+      { name: 'Python', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+      { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+      { name: 'GitHub', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg' },
+      { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+      { name: 'Azure', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg' },
+      { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+      { name: 'Redis', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
+      { name: 'MongoDB', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+      { name: 'Vercel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg' },
+      { name: 'Netlify', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg' },
+      { name: 'ESlint', icon: 'https://static.cdnlogo.com/logos/e/80/eslint.svg' },
+      { name: 'GCP', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg' },
+      { name: 'AWS', icon: 'https://static.cdnlogo.com/logos/a/10/aws_800.png'},
+      { name: 'Firebase', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg' },
+    ].map((tech, index) => (
+      <motion.div
+        key={tech.name}
+        className="relative group flex flex-col items-center"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ 
+          opacity: 1, 
+          y: [0, -10, 0],
+        }}
+        transition={{ 
+          opacity: { duration: 0.5, delay: 0.5 + index * 0.1 },
+          y: { 
+            duration: 5 + Math.random() * 2, 
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 0.5
+          }
+        }}
+        whileHover={{ 
+          scale: 1.3,
+          y: -15,
+          transition: { duration: 0.3 }
+        }}
+      >
+        <img 
+          src={tech.icon} 
+          width="44" 
+          height="44" 
+          alt={tech.name}
+          className="drop-shadow-lg filter hover:drop-shadow-[0_0_12px_rgba(192,132,252,0.6)] transition-all duration-300"
+        />
+        <div className="absolute -bottom-7 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-slate-800/90 text-white text-xs font-medium py-1 px-2 rounded-md whitespace-nowrap backdrop-blur-sm">
+          {tech.name}
+        </div>
+        <div className="absolute inset-0 bg-purple-500/20 rounded-full opacity-0 group-hover:opacity-100 blur-md group-hover:scale-125 transition-all duration-300 -z-10"></div>
+      </motion.div>
+    ))}
+  </div>
+  
+  {/* Subtle background animation */}
+  <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+    {Array.from({ length: 15 }).map((_, i) => (
+      <motion.div
+        key={i}
+        className="absolute w-1 h-1 bg-purple-500 rounded-full opacity-20"
+        style={{
+          left: `${Math.random() * 100}%`,
+          top: `${Math.random() * 100}%`,
+        }}
+        animate={{
+          y: [0, -20, 0],
+          opacity: [0.1, 0.3, 0.1]
+        }}
+        transition={{
+          duration: 4 + Math.random() * 3,
+          repeat: Infinity,
+          delay: Math.random() * 2
+        }}
+      />
+    ))}
+  </div>
+       </motion.div>
       </div>
     </section>
   );
