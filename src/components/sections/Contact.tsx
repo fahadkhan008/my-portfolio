@@ -165,9 +165,20 @@ const Contact: React.FC = () => {
         <div className="absolute bottom-20 right-20 w-64 sm:w-96 h-64 sm:h-96 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full filter blur-3xl animate-float" style={{ animationDelay: '3s' }}></div>
       </div>
 
+      {/* Optimized grid pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(59, 130, 246, 0.5) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(59, 130, 246, 0.5) 1px, transparent 1px)
+          `,
+          backgroundSize: "50px 50px",
+        }}></div>
+
       {/* Optimized floating particles */}
       <div ref={particlesRef} className="absolute inset-0 pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {[...Array(10)].map((_, i) => (
           <div
             key={i}
             className="particle absolute w-1 sm:w-2 h-1 sm:h-2 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full opacity-60"

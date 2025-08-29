@@ -189,7 +189,7 @@ const Hero: React.FC = () => {
         }}>
         {/* Animated Stars Background */}
         <div className="absolute inset-0">
-          {[...Array(50)].map((_, i) => (
+          {[...Array(40)].map((_, i) => (
             <div
               key={`star-${i}`}
               className="absolute w-1 h-1 bg-white rounded-full animate-pulse"

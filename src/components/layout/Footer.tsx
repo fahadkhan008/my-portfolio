@@ -72,9 +72,25 @@ const Footer: React.FC = () => {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-500/5 to-blue-500/5 rounded-full filter blur-3xl footer-float"></div>
       </div>
 
+      {/* Animated Stars Background */}
+        <div className="absolute inset-0">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={`star-${i}`}
+              className="absolute w-1 h-1 bg-white rounded-full animate-pulse"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 2}s`,
+              }}
+            />
+          ))}
+        </div>
+
       {/* Grid pattern */}
-      <div 
-        className="absolute inset-0 opacity-5"
+      <div
+        className="absolute inset-0 opacity-10"
         style={{
           backgroundImage: `
             linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
