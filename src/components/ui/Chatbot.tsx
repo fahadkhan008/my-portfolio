@@ -10,7 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import gsap from "gsap";
-import OpenAI from "openai";
+import { sendMessage as sendChatMessage } from "../../lib/chat";
 
 interface Message {
   id: string;
@@ -19,36 +19,22 @@ interface Message {
   timestamp: Date;
 }
 
+const initialAssistantMessage: Message = {
+  id: "1",
+  content:
+    "Hi! I'm Fahad's AI assistant. I can answer questions about his skills, projects, experience, and availability. How can I help you today?",
+  role: "assistant",
+  timestamp: new Date(),
+};
+
 const Chatbot: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      content:
-        "Hi! I'm fahad's AI assistant. I can answer questions about his skills, projects, experience, and availability. How can I help you today?",
-      role: "assistant",
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([initialAssistantMessage]);
   const [inputValue, setInputValue] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatbotRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Initialize OpenAI client
-  const apiKey = import.meta.env.VITE_REACT_APP_OPENAI_API_KEY;
-  const hasValidApiKey =
-    apiKey &&
-    apiKey !== "your_openai_api_key_here" &&
-    !apiKey.includes("your-ope");
-
-  const openai = hasValidApiKey
-    ? new OpenAI({
-        apiKey: apiKey,
-        dangerouslyAllowBrowser: true, // Note: In production, use a backend API
-      })
-    : null;
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -70,8 +56,6 @@ const Chatbot: React.FC = () => {
           ease: "power2.out",
         }
       );
-
-      // Focus input when opened
       setTimeout(() => {
         inputRef.current?.focus();
       }, 300);
@@ -80,7 +64,6 @@ const Chatbot: React.FC = () => {
 
   const portfolioContext = `
     You are an AI assistant for Fahad khan's portfolio website. Here's information about fahad:
-
     PERSONAL INFO:
     - Name: Fahad Khan
     - Role: Full-Stack Developer & UI/UX Designer
@@ -89,13 +72,11 @@ const Chatbot: React.FC = () => {
     - Phone: +92 (310) 477-9591
     - Experience: 5+ years in web development
     - Currently available for new projects
-
     SKILLS & TECHNOLOGIES:
     Frontend: React, TypeScript, Next.js, Tailwind CSS, JavaScript, HTML5, CSS3, SASS, Bootstrap 
     Backend: Node.js, Python, Django, PostgreSQL, MongoDB, REST APIs, GraphQL
     Design: Figma, Adobe XD, UI/UX Design, Responsive Design
     Tools: Git, Docker, AWS, Vercel, Jest, Cypress, Webpack, Vite
-
     PROJECTS:
     1. E-Commerce Platform - React, Node.js, PostgreSQL, Stripe integration
     2. Task Management App - React, TypeScript, Firebase, real-time collaboration
@@ -103,86 +84,110 @@ const Chatbot: React.FC = () => {
     4. Brand Identity Design - Complete branding for tech startup
     5. Animated Portfolio with chatbot - React, Framer Motion, OpenAI API, GSAP, Tailwind CSS, Three.js 
     6. Dashboard Analytics - React, D3.js, WebSockets, real-time data
-
     EXPERIENCE:
     - Senior Full-Stack Developer at TechCorp (2021-Present)
     - Frontend Developer at StartupXYZ (2019-2021)
     - UI/UX Designer at DesignStudio (2018-2019)
-
     ACHIEVEMENTS:
     - 50+ completed projects
     - 25+ satisfied clients
     - Expert in 15+ technologies
     - Available for freelance work
-
     Please respond as Fahad's helpful AI assistant. Be friendly, professional, and provide accurate information about Fahad's skills, experience, and projects. If asked about availability, mention he's currently accepting new projects.
   `;
 
+  const getFallbackResponse = (input: string): string => {
+    const lowerInput = input.toLowerCase();
+    if (
+      lowerInput.includes("skill") ||
+      lowerInput.includes("technology") ||
+      lowerInput.includes("tech")
+    ) {
+      return "Fahad is proficient in React, TypeScript, Node.js, Python, Django, PostgreSQL, and modern web technologies. He has 5+ years of experience in full-stack development and UI/UX design. His expertise includes building scalable web applications, RESTful APIs, and creating intuitive user interfaces.";
+    }
+    if (
+      lowerInput.includes("project") ||
+      lowerInput.includes("work") ||
+      lowerInput.includes("portfolio")
+    ) {
+      return "Fahad has completed 50+ projects including e-commerce platforms, task management apps, mobile applications, and API services. His notable work includes a React-based e-commerce platform with real-time inventory management, a collaborative task management app with drag-and-drop functionality, and various mobile apps built with React Native.";
+    }
+    if (
+      lowerInput.includes("experience") ||
+      lowerInput.includes("background") ||
+      lowerInput.includes("career")
+    ) {
+      return "Fahad has 5+ years of professional experience as a Full-Stack Developer. He's currently a Senior Full-Stack Developer at TechCorp (2021-Present), previously worked as a Frontend Developer at StartupXYZ (2019-2021), and started as a UI/UX Designer at DesignStudio (2018-2019). He's passionate about creating exceptional digital experiences.";
+    }
+    if (
+      lowerInput.includes("contact") ||
+      lowerInput.includes("hire") ||
+      lowerInput.includes("available") ||
+      lowerInput.includes("email")
+    ) {
+      return "Fahad is currently available for new projects! You can reach him at fahadkhan233144@gmail.com or call +92 (310) 477-9591. He's based in Lahore, Pakistan but works with clients worldwide. He offers free consultations and typically responds within 24 hours.";
+    }
+    if (
+      lowerInput.includes("education") ||
+      lowerInput.includes("learn") ||
+      lowerInput.includes("study")
+    ) {
+      return "Fahad is a continuous learner who stays updated with the latest technologies. He regularly contributes to open-source projects, attends tech conferences, and shares knowledge with the developer community. His learning approach combines hands-on projects with theoretical understanding.";
+    }
+    if (
+      lowerInput.includes("price") ||
+      lowerInput.includes("cost") ||
+      lowerInput.includes("rate") ||
+      lowerInput.includes("budget")
+    ) {
+      return "Fahad offers competitive rates based on project scope and requirements. He provides detailed quotes after understanding your specific needs. For accurate pricing, please contact him directly at Fahad.fahadkhan233144@gmail.com with your project details.";
+    }
+    if (
+      lowerInput.includes("hello") ||
+      lowerInput.includes("hi") ||
+      lowerInput.includes("hey")
+    ) {
+      return "Hello! I'm Fahad's AI assistant. I'm here to help you learn more about Fahad's skills, experience, and projects. Feel free to ask me anything about his work, availability, or technical expertise!";
+    }
+    if (lowerInput.includes("thank") || lowerInput.includes("thanks")) {
+      return "You're welcome! If you have any other questions about Fahad's work or would like to get in touch with him, feel free to ask. I'm here to help!";
+    }
+    return "I'd be happy to help you learn more about Fahad! You can ask me about his technical skills, project experience, work background, or how to get in touch with him. What would you like to know?";
+  };
+
   const sendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
-
     const userMessage: Message = {
       id: Date.now().toString(),
       content: inputValue,
       role: "user",
       timestamp: new Date(),
     };
-
     setMessages((prev) => [...prev, userMessage]);
-    const currentInput = inputValue;
-    setInputValue("");
     setIsLoading(true);
-
+    setInputValue("");
     try {
-      let assistantMessage: Message;
-
-      if (hasValidApiKey && openai) {
-        // Use OpenAI API
-        const completion = await openai.chat.completions.create({
-          model: "gpt-3.5-turbo",
-          messages: [
-            {
-              role: "system",
-              content: portfolioContext,
-            },
-            ...messages.map((msg) => ({
-              role: msg.role as "user" | "assistant",
-              content: msg.content,
-            })),
-            {
-              role: "user",
-              content: currentInput,
-            },
-          ],
-          max_tokens: 300,
-          temperature: 0.7,
-        });
-
-        assistantMessage = {
-          id: (Date.now() + 1).toString(),
-          content:
-            completion.choices[0]?.message?.content ||
-            "I'm sorry, I couldn't process that request. Please try again.",
-          role: "assistant",
-          timestamp: new Date(),
-        };
-      } else {
-        // Use fallback responses
-        const response = getFallbackResponse(currentInput);
-        assistantMessage = {
-          id: (Date.now() + 1).toString(),
-          content: response,
-          role: "assistant",
-          timestamp: new Date(),
-        };
-      }
-
+      const chatHistory = [
+        { role: "system", content: portfolioContext },
+        ...messages.map((msg) => ({
+          role: msg.role,
+          content: msg.content,
+        })),
+        { role: "user", content: userMessage.content },
+      ];
+      const reply = await sendChatMessage(chatHistory);
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: reply || getFallbackResponse(userMessage.content),
+        role: "assistant",
+        timestamp: new Date(),
+      };
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      console.error("AI Service Error:", error);
+      console.error("Chat API Error:", error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        content: getFallbackResponse(currentInput),
+        content: getFallbackResponse(userMessage.content),
         role: "assistant",
         timestamp: new Date(),
       };
@@ -192,75 +197,6 @@ const Chatbot: React.FC = () => {
     }
   };
 
-  // Fallback response system when OpenAI API is not available
-  const getFallbackResponse = (input: string): string => {
-    const lowerInput = input.toLowerCase();
-
-    if (
-      lowerInput.includes("skill") ||
-      lowerInput.includes("technology") ||
-      lowerInput.includes("tech")
-    ) {
-      return "Fahad is proficient in React, TypeScript, Node.js, Python, Django, PostgreSQL, and modern web technologies. He has 5+ years of experience in full-stack development and UI/UX design. His expertise includes building scalable web applications, RESTful APIs, and creating intuitive user interfaces.";
-    }
-
-    if (
-      lowerInput.includes("project") ||
-      lowerInput.includes("work") ||
-      lowerInput.includes("portfolio")
-    ) {
-      return "Fahad has completed 50+ projects including e-commerce platforms, task management apps, mobile applications, and API services. His notable work includes a React-based e-commerce platform with real-time inventory management, a collaborative task management app with drag-and-drop functionality, and various mobile apps built with React Native.";
-    }
-
-    if (
-      lowerInput.includes("experience") ||
-      lowerInput.includes("background") ||
-      lowerInput.includes("career")
-    ) {
-      return "Fahad has 5+ years of professional experience as a Full-Stack Developer. He's currently a Senior Full-Stack Developer at TechCorp (2021-Present), previously worked as a Frontend Developer at StartupXYZ (2019-2021), and started as a UI/UX Designer at DesignStudio (2018-2019). He's passionate about creating exceptional digital experiences.";
-    }
-
-    if (
-      lowerInput.includes("contact") ||
-      lowerInput.includes("hire") ||
-      lowerInput.includes("available") ||
-      lowerInput.includes("email")
-    ) {
-      return "Fahad is currently available for new projects! You can reach him at fahadkhan233144@gmail.com or call +92 (310) 477-9591. He's based in Lahore, Pakistan but works with clients worldwide. He offers free consultations and typically responds within 24 hours.";
-    }
-
-    if (
-      lowerInput.includes("education") ||
-      lowerInput.includes("learn") ||
-      lowerInput.includes("study")
-    ) {
-      return "Fahad is a continuous learner who stays updated with the latest technologies. He regularly contributes to open-source projects, attends tech conferences, and shares knowledge with the developer community. His learning approach combines hands-on projects with theoretical understanding.";
-    }
-
-    if (
-      lowerInput.includes("price") ||
-      lowerInput.includes("cost") ||
-      lowerInput.includes("rate") ||
-      lowerInput.includes("budget")
-    ) {
-      return "Fahad offers competitive rates based on project scope and requirements. He provides detailed quotes after understanding your specific needs. For accurate pricing, please contact him directly at Fahad.fahadkhan233144@gmail.com with your project details.";
-    }
-
-    if (
-      lowerInput.includes("hello") ||
-      lowerInput.includes("hi") ||
-      lowerInput.includes("hey")
-    ) {
-      return "Hello! I'm Fahad's AI assistant. I'm here to help you learn more about Fahad's skills, experience, and projects. Feel free to ask me anything about his work, availability, or technical expertise!";
-    }
-
-    if (lowerInput.includes("thank") || lowerInput.includes("thanks")) {
-      return "You're welcome! If you have any other questions about Fahad's work or would like to get in touch with him, feel free to ask. I'm here to help!";
-    }
-
-    // Default response
-    return "I'd be happy to help you learn more about Fahad! You can ask me about his technical skills, project experience, work background, or how to get in touch with him. What would you like to know?";
-  };
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -290,7 +226,6 @@ const Chatbot: React.FC = () => {
         className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 flex items-center justify-center group overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12"></div>
-
         <AnimatePresence mode="wait">
           {isOpen ? (
             <motion.div
@@ -314,16 +249,12 @@ const Chatbot: React.FC = () => {
             </motion.div>
           )}
         </AnimatePresence>
-
-        {/* Notification dot */}
         {!isOpen && (
           <div className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full flex items-center justify-center">
             <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
           </div>
         )}
       </motion.button>
-
-      {/* Chatbot Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -332,7 +263,6 @@ const Chatbot: React.FC = () => {
             exit={{ opacity: 0, scale: 0.8, y: 20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="fixed bottom-24 right-6 z-40 w-96 h-[500px] bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 overflow-hidden">
-            {/* Header */}
             <div className="bg-gradient-to-r from-blue-500/20 to-purple-500/20 backdrop-blur-sm p-4 border-b border-white/10">
               <div className="flex items-center space-x-3">
                 <div className="relative">
@@ -355,8 +285,6 @@ const Chatbot: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            {/* Messages */}
             <div
               ref={chatbotRef}
               className="flex-1 overflow-y-auto p-4 space-y-4 h-80">
@@ -406,7 +334,6 @@ const Chatbot: React.FC = () => {
                   </div>
                 </motion.div>
               ))}
-
               {isLoading && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
@@ -432,8 +359,6 @@ const Chatbot: React.FC = () => {
               )}
               <div ref={messagesEndRef} />
             </div>
-
-            {/* Quick Questions */}
             {messages.length === 1 && (
               <div className="px-4 pb-2">
                 <p className="text-gray-400 text-xs mb-2">Quick questions:</p>
@@ -451,8 +376,6 @@ const Chatbot: React.FC = () => {
                 </div>
               </div>
             )}
-
-            {/* Input */}
             <div className="p-4 border-t border-white/10 bg-white/5 backdrop-blur-sm">
               <div className="flex items-center space-x-2">
                 <input
