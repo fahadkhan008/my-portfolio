@@ -38,3 +38,4 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 }
+console.log("OPENAI_API_KEY loaded:", process.env.OPENAI_API_KEY ? "✅ Yes" : "❌ No");
