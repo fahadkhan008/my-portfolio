@@ -1,4 +1,3 @@
-// src/lib/chat.ts
 export async function sendMessage(messages: { role: string; content: string }[]): Promise<string | null> {
   try {
     const res = await fetch("/api/chat", {

@@ -1,4 +1,3 @@
-// api/chat.ts
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import OpenAI from 'openai';
 
